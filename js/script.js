@@ -113,8 +113,17 @@ var programmerQuotes = [
   { quote: "If it keeps up, man will atrophy all his limbs but the push-button finger.", source: "Frank Lloyd Wright" }
 ];
 
-// Simple function just returns a rand quote object, based on the length of the quote object array
+// Little color pallette to set backgrounds from https://flatuicolors.com/palette/defo
+colorArray = ['#3498db', '#8e44ad', '#e74c3c', '#f1c40f', '#16a085', '#e67e22'];
 
+
+// function to get a random color from my pallette
+function getRandomColor(colors) {
+  var colorNum = Math.floor(Math.random() * colors.length);
+  return colors[colorNum];
+}
+
+// Simple function just returns a rand quote object, based on the length of the quote object array
 function getRandomQuote(quotes) {
     var randQuote = Math.floor(Math.random() * quotes.length);
     console.log(randQuote);
@@ -125,6 +134,7 @@ function getRandomQuote(quotes) {
 // finally it replaced the html string in the index.html
 
 function printQuote() {
+  //first get the quote and set the html
   var randomQuote = getRandomQuote(programmerQuotes);
   var htmlString = '<p class = "quote">' + randomQuote.quote + '</p><p class = "source">' + randomQuote.source;
   if (randomQuote.citation) {
@@ -135,11 +145,18 @@ function printQuote() {
   }
   htmlString += '</p>'
   document.getElementById("quote-box").innerHTML = htmlString;
-  console.log(htmlString);
+
+  //next get the color and set the background property
+  var randomColor = getRandomColor(colorArray);
+  document.body.style.backgroundColor = randomColor;
+  document.getElementById("loadQuote").style.backgroundColor = randomColor;
 }
 
 // Load a random quote on initial page load
 printQuote();
 
-// sets a listener for the printQuote function
+// Load new quote every 10 seconds
+setInterval(function(){printQuote()}, 10000);
+
+// sets a listener for the printQuote function on the loadQuote button, Yo!!
 document.getElementById('loadQuote').addEventListener("click", printQuote, false);
