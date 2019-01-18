@@ -1,20 +1,13 @@
 /******************************************
 Treehouse Techdegree:
-FSJS project 1 - A Random Quote Generator
+  FSJS project 1 - A Random Quote Generator
+  Nick Weber
+  2019 - 01 - 18
 ******************************************/
 
 // Study guide for this project - https://drive.google.com/file/d/1s5grutGuQFwJcQP8bFwEI69Q8FCkGdDk/view?usp=sharing
 
-
-/*** 
-  Create the array of quote objects and name it `quotes`.
-  Add at least five quote objects to the `quotes` array.
-  Give each quote object a `quote` and `source` property.
-
-  Recommended: 
-    - Add at least one `year` and/or `citation` property to at least one 
-      quote object.
-***/
+// Programmer quote Array, only several have a citation and year property as well
 
 var programmerQuotes = [
   { quote: "Computers are useless.  They can only give you answers.", source: "Pablo Picasso" },
@@ -32,7 +25,7 @@ var programmerQuotes = [
   { quote: "Most software today is very much like an Egyptian pyramid with millions of bricks piled on top of each other, with no structural integrity, but just done by brute force and thousands of slaves.", source: "Alan Kay" },
   { quote: "I’ve finally learned what ‘upward compatible’ means.  It means we get to keep all our old mistakes.", source: "Dennie van Tassel" },
   { quote: "There are two major products that come out of Berkeley: LSD and UNIX.  We don’t believe this to be a coincidence.", source: "Jeremy S. Anderso" },
-  { quote: "19 Jan 2038 at 3:14:07 AM", source: "End of the word according to Unix–2^32 seconds after January 1, 197" },
+  { quote: "19 Jan 2038 at 3:14:07 AM", source: "End of the word according to Unix–2^32 seconds after January 1, 1971" },
   { quote: "Every operating system out there is about equal… We all suck.", source: "Microsoft senior vice president Brian Valentine describing the state of the art in OS security" },
   { quote: "Microsoft has a new version out, Windows XP, which according to everybody is the ‘most reliable Windows ever.‘  To me, this is like saying that asparagus is ‘the most articulate vegetable ever.‘ ", source: "Dave Barr" },
   { quote: "The Internet?  Is that thing still around?”  ", source: "Homer Simpso" },
@@ -109,23 +102,18 @@ var programmerQuotes = [
   { quote: "Always code as if the guy who ends up maintaining your code will be a violent psychopath who knows where you live.", source: "Martin Goldin" },
   { quote: "To err is human, but to really foul things up you need a computer.", source: "Paul Ehrlich" },
   { quote: "A computer lets you make more mistakes faster than any invention in human history–with the possible exceptions of handguns and tequila.", source: "Mitch Radcliffe" },
-  { quote: "Everything that can be invented has been invented.", source: "Charles H. Duell, Commissioner, U.S. Office of Patents, 1899" },
-  { quote: "I think there’s a world market for about 5 computers.", source: "Thomas J. Watson, Chairman of the Board, IBM, circa 1944" },
-  { quote: "It would appear that we have reached the limits of what it is possible to achieve with computer technology, although one should be careful with such statements, as they tend to sound pretty silly in 5 years.” ", source: "John Von Neumann, circa 1944" },
-  { quote: "But what is it good for?", source: "Engineer at the Advanced Computing Systems Division of IBM, commenting on the microchip, 1965" },
-  { quote: "There is no reason for any individual to have a computer in his home.", source: "Ken Olson, President, Digital Equipment Corporation, 1972" },
-  { quote: "640K ought to be enough for anybody.", source: "Bill Gates, 1981" },
-  { quote: "Windows NT addresses 2 Gigabytes of RAM, which is more than any application will ever need.", source: "Microsoft, on the development of Windows NT, 1999" },
-  { quote: "We will never become a truly paper-less society until the Palm Pilot folks come out with WipeMe 1.0.", source: "Andy Pierso" },
+  { quote: "Everything that can be invented has been invented.", source: "Charles H. Duell", citation: "Commissioner, U.S. Office of Patents", year: "1899" },
+  { quote: "I think there’s a world market for about 5 computers.", source: "Thomas J. Watson", citation: "Chairman of the Board, IBM", year: "circa 1944" },
+  { quote: "It would appear that we have reached the limits of what it is possible to achieve with computer technology, although one should be careful with such statements, as they tend to sound pretty silly in 5 years.” ", source: "John Von Neumann", year: "circa 1944" },
+  { quote: "But what is it good for?", source: "Engineer at the Advanced Computing Systems Division of IBM", citation: "commenting on the microchip", year: "1965" },
+  { quote: "There is no reason for any individual to have a computer in his home.", source: "Ken Olson", citation: "President, Digital Equipment Corporation", year: "1972" },
+  { quote: "640K ought to be enough for anybody.", source: "Bill Gates", year: "1981" },
+  { quote: "Windows NT addresses 2 Gigabytes of RAM, which is more than any application will ever need.", source: "Microsoft", citation: "Development of Windows NT", year: "1999" },
+  { quote: "We will never become a truly paper-less society until the Palm Pilot folks come out with WipeMe 1.0.", source: "Andy Pierso", year: "1988" },
   { quote: "If it keeps up, man will atrophy all his limbs but the push-button finger.", source: "Frank Lloyd Wright" }
 ];
 
-/***
-  Create the `getRandomQuote` function to:
-   - generate a random number 
-   - use the random number to `return` a random quote object from the 
-     `quotes` array.
-***/
+// Simple function just returns a rand quote object, based on the length of the quote object array
 
 function getRandomQuote(quotes) {
     var randQuote = Math.floor(Math.random() * quotes.length);
@@ -133,36 +121,25 @@ function getRandomQuote(quotes) {
     return quotes[randQuote];
 }
 
-
-/***
-  Create the `printQuote` function to: 
-   - call the `getRandomQuote` function and assign it to a variable.
-   - use the properties of the quote object stored in the variable to 
-     create your HTML string.
-   - use conditionals to make sure the optional properties exist before 
-     they are added to the HTML string.
-   - set the `innerHTML` of the `quote-box` div to the HTML string. 
-***/
+// the printQuote function checks the properties of the random quote and stitches up a html string
+// finally it replaced the html string in the index.html
 
 function printQuote() {
   var randomQuote = getRandomQuote(programmerQuotes);
-  var theQuote = randomQuote.quote;
-  var theSource = randomQuote.quote;
-  var htmlString = '<p class = "quote">' + theQuote + '</p>';
+  var htmlString = '<p class = "quote">' + randomQuote.quote + '</p><p class = "source">' + randomQuote.source;
+  if (randomQuote.citation) {
+    htmlString += '<span class="citation">' + randomQuote.citation + '</span>';
+  };
+  if (randomQuote.year) {
+    htmlString += '<span class="year">' + randomQuote.year + '</span>';
+  }
+  htmlString += '</p>'
   document.getElementById("quote-box").innerHTML = htmlString;
   console.log(htmlString);
 }
 
+// Load a random quote on initial page load
 printQuote();
 
-/***
-  When the "Show another quote" button is clicked, the event listener 
-  below will be triggered, and it will call, or "invoke", the `printQuote` 
-  function. So do not make any changes to the line of code below this 
-  comment.
-***/
-
-// document.getElementById('loadQuote').addEventListener("click", printQuote, false);
-
-
-// Remember to delete the comments that came with this file, and replace them with your own code comments.
+// sets a listener for the printQuote function
+document.getElementById('loadQuote').addEventListener("click", printQuote, false);
